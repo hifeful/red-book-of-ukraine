@@ -2,6 +2,7 @@ package com.hifeful.redbookofukraine.di
 
 import android.app.Application
 import com.hifeful.redbookofukraine.BaseApplication
+import com.hifeful.redbookofukraine.di.db.DatabaseModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

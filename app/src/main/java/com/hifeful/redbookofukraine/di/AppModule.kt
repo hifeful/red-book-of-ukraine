@@ -4,6 +4,9 @@ import android.app.Application
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hifeful.redbookofukraine.R
+import com.hifeful.redbookofukraine.data.db.animal.AnimalRepository
+import com.hifeful.redbookofukraine.data.db.plant.PlantRepository
+import com.hifeful.redbookofukraine.domain.SearchInteractor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,4 +23,11 @@ class AppModule {
     @Provides
     internal fun provideGlideInstance(application: Application, requestOptions: RequestOptions) =
         Glide.with(application).setDefaultRequestOptions(requestOptions)
+
+    @Singleton
+    @Provides
+    internal fun provideSearchInteractor(
+        animalRepository: AnimalRepository,
+        plantRepository: PlantRepository
+    ) = SearchInteractor(animalRepository, plantRepository)
 }

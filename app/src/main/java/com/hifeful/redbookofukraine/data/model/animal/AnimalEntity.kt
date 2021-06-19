@@ -23,11 +23,11 @@ data class AnimalEntity(
     val family: Long?,
     val status: String,
     val areal: String,
-    val population: String,
+    val population: String?,
     @ColumnInfo(name = "cause_of_extinction")
-    val causeOfExtinction: String,
+    val causeOfExtinction: String?,
     @ColumnInfo(name = "scientific_value")
-    val scientificValue: String,
+    val scientificValue: String?,
     @ColumnInfo(name = "morphological_features")
     val morphologicalFeatures: String,
     @ColumnInfo(name = "security_measures")

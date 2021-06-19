@@ -2,7 +2,9 @@ package com.hifeful.redbookofukraine.data.db.animal
 
 import com.hifeful.redbookofukraine.data.model.animal.AnimalEntity
 import com.hifeful.redbookofukraine.data.model.animal.toAnimal
+import com.hifeful.redbookofukraine.data.model.toOrganismSearch
 import com.hifeful.redbookofukraine.domain.Animal
+import com.hifeful.redbookofukraine.domain.OrganismType
 import javax.inject.Inject
 
 class AnimalRepository @Inject constructor(
@@ -39,5 +41,18 @@ class AnimalRepository @Inject constructor(
 
             return toAnimal(animalType, animalClass, animalOrder, animalFamily)
         }
+    }
+
+    fun searchAnimalsShortByName(query: String) =
+        animalDao.searchAnimalsShortByName(query).map { it.toOrganismSearch(OrganismType.ANIMAL) }
+
+    fun searchAnimalsByName(query: String): List<Animal> {
+        val animalEntities = animalDao.searchAnimalsByName(query)
+
+        val animals = mutableListOf<Animal>()
+        for (animalEntity in animalEntities) {
+            animals.add(getAnimalWithCategories(animalEntity))
+        }
+        return animals
     }
 }

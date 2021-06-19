@@ -7,7 +7,11 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.model.MarkerOptions
 import com.hifeful.redbookofukraine.R
@@ -16,81 +20,36 @@ import kotlin.math.ceil
 const val PACKAGE_NAME = "com.hifeful.redbookofukraine"
 const val DRAWABLE_FOLDER = "drawable"
 
-fun createUserBitmap(
-    context: Context,
-    options: MarkerOptions,
-    fileName: String,
-    handleBitmap: (MarkerOptions, Bitmap) -> Unit
-) {
-    val result: Bitmap =
-        Bitmap.createBitmap(dp(context, 62), dp(context, 76), Bitmap.Config.ARGB_8888)
-    result.eraseColor(Color.TRANSPARENT)
-    val canvas = Canvas(result)
-    ContextCompat.getDrawable(context, R.drawable.live_pin)?.apply {
-        setBounds(0, 0, dp(context, 62), dp(context, 76))
-        draw(canvas)
-    }
-    val roundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    val bitmapRect = RectF()
-    canvas.save()
-    Glide.with(context)
-        .asBitmap()
-        .load(context.resources.getIdentifier(fileName, DRAWABLE_FOLDER, context.packageName))
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                val shader = BitmapShader(resource, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-                val matrix = Matrix()
-                val scale: Float = dp(context, 52) / resource.width.toFloat()
-                matrix.postTranslate(dp(context, 5).toFloat(), dp(context, 5).toFloat())
-                matrix.postScale(scale, scale)
-                roundPaint.shader = shader
-                shader.setLocalMatrix(matrix)
-                bitmapRect[
-                        dp(context, 5).toFloat(),
-                        dp(context, 5).toFloat(),
-                        dp(context, 52 + 5).toFloat()
-                ] = dp(context, 52 + 5).toFloat()
-                canvas.drawRoundRect(
-                    bitmapRect,
-                    dp(context, 26).toFloat(),
-                    dp(context, 26).toFloat(),
-                    roundPaint
-                )
-
-                handleBitmap(options, result)
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {
-            }
-        })
-}
-
 fun prepareBitmap(
     context: Context,
-    options: MarkerOptions,
     fileName: String,
-    handleBitmap: (MarkerOptions, Bitmap) -> Unit
-) {
-    Glide.with(context)
+): Bitmap {
+    return Glide.with(context)
         .asBitmap()
-        .placeholder(R.drawable.live_pin)
         .override(50)
         .load(context.resources.getIdentifier(fileName, DRAWABLE_FOLDER, context.packageName))
-        .circleCrop()
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                handleBitmap(options, resource)
+        .listener(object : RequestListener<Bitmap> {
+            override fun onResourceReady(
+                resource: Bitmap?,
+                model: Any?,
+                target: Target<Bitmap>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return true
             }
 
-            override fun onLoadCleared(placeholder: Drawable?) {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Bitmap>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
             }
-        })
+
+        }).submit().get()
 }
-
-fun setImage(context: Context, fileName: String, imageView: ImageView) =
-    Glide.with(context)
-        .load(context.resources.getIdentifier(fileName, DRAWABLE_FOLDER, context.packageName))
-        .into(imageView)
 
 fun dp(context: Context, value: Int): Int {
     return if (value == 0) {

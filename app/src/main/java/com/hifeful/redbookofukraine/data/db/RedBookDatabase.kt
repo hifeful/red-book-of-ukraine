@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.hifeful.redbookofukraine.data.db.animal.*
 import com.hifeful.redbookofukraine.data.db.organism.OrganismDao
+import com.hifeful.redbookofukraine.data.db.plant.PlantDao
+import com.hifeful.redbookofukraine.data.db.plant.PlantDivisionDao
+import com.hifeful.redbookofukraine.data.db.plant.PlantFamilyDao
+import com.hifeful.redbookofukraine.data.db.plant.PlantTypeDao
 import com.hifeful.redbookofukraine.data.model.OrganismEntity
 import com.hifeful.redbookofukraine.data.model.animal.*
 import com.hifeful.redbookofukraine.data.model.plant.PlantEntity
@@ -32,8 +36,13 @@ abstract class RedBookDatabase : RoomDatabase() {
     abstract fun animalOrderDao(): AnimalOrderDao
     abstract fun animalFamilyDao(): AnimalFamilyDao
 
+    abstract fun plantTypeDao(): PlantTypeDao
+    abstract fun plantDivisionDao(): PlantDivisionDao
+    abstract fun plantFamilyDao(): PlantFamilyDao
+
     abstract fun organismDao(): OrganismDao
     abstract fun animalDao(): AnimalDao
+    abstract fun plantDao(): PlantDao
 
     companion object {
         private const val DATABASE_NAME = "red_book_of_ukraine.db"

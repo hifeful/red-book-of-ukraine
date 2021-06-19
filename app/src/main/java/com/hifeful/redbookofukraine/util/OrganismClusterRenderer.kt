@@ -1,10 +1,16 @@
 package com.hifeful.redbookofukraine.util
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -14,7 +20,6 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.google.maps.android.ui.IconGenerator
-import com.hifeful.redbookofukraine.R
 
 class OrganismClusterRenderer(
     private val context: Context,
@@ -34,19 +39,32 @@ class OrganismClusterRenderer(
         item: OrganismClusterItem,
         markerOptions: MarkerOptions
     ) {
-        markerOptions.icon(getItemIcon(item))
+        markerOptions.visible(false)
     }
 
-    override fun onClusterItemUpdated(item: OrganismClusterItem, marker: Marker) {
-        marker.setIcon(getItemIcon(item))
-    }
+    override fun onClusterItemRendered(clusterItem: OrganismClusterItem, marker: Marker) {
+        Glide.with(context)
+            .load(context.resources.getIdentifier(clusterItem.organism.photoUrl, DRAWABLE_FOLDER, context.packageName))
+            .override(100)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(object : CustomTarget<Drawable>() {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
+                    mImageView.setImageDrawable(resource)
+                    val icon = mIconGenerator.makeIcon()
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(icon))
+                    marker.isVisible = true
+                }
 
-    private fun getItemIcon(organismClusterItem: OrganismClusterItem): BitmapDescriptor {
-        mImageView.setImageBitmap(BitmapFactory.decodeFile(getUriToResource(organismClusterItem.photoUrl)))
-        val icon = mIconGenerator.makeIcon()
-        return BitmapDescriptorFactory.fromBitmap(icon)
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
     }
 
     override fun shouldRenderAsCluster(cluster: Cluster<OrganismClusterItem>): Boolean =
-        false
+        cluster.size > 1
+
+
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/organism_item_height"
+    android:layout_marginBottom="16dp"
+    android:weightSum="10"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/organism_image"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/organism_image"
+        tools:src="@drawable/moerisia_maeotica"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/organism_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?colorOnBackground"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="@string/lorem_ipsum"/>
+        <TextView
+            android:id="@+id/organism_item_name_latin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:text="@string/lorem_ipsum"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="@string/lorem_ipsum"/>
+    </LinearLayout>
+
+</LinearLayout>

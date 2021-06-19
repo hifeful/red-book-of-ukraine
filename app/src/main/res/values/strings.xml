@@ -1,4 +1,30 @@
 <resources>
-    <string name="app_name">Red Book of Ukraine</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">Червона книга України</string>
+    <string name="title_activity_maps">Червона книга України</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    </string>
+
+    <!-- Map Fragment -->
+    <string name="filter_fab">Filter Floating Action Button</string>
+    
+    <!-- Organism Fragment -->
+    <string name="organism_photo">Photo of organism</string>
+    <string name="status">Природоохоронний статус виду</string>
+    <string name="areal">Ареал виду і його поширення в Україні</string>
+    <string name="population">Чисельність</string>
+    <string name="cause_of_extinction">Причини зміни чисельності</string>
+    <string name="scientific_value">Особливості біології та наукове значення</string>
+    <string name="morphological_features">Морфологічні ознаки</string>
+    <string name="growing_conditions">Умови місцезростання</string>
+    <string name="biomorphological_characteristics">Загальна біоморфологічна характеристика</string>
+    <string name="security_measures">Режим збереження популяції та заходи з охорони</string>
+    <string name="breeding">Розмноження та розведення у спеціально створених умовах</string>
+    <string name="commercial_value">Господарське та комерційне значення</string>
+    <string name="sources">Джерело</string>
+
+    <!-- Search -->
+    <string name="search">Пошук…</string>
+    <string name="organism_image">Картинка організму</string>
 </resources>

@@ -8,5 +8,31 @@
         android:id="@+id/mapFragment"
         android:name="com.hifeful.redbookofukraine.ui.map.MapFragment"
         android:label="fragment-map"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_mapFragment_to_organismFragment"
+            app:destination="@id/organismFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/organismFragment"
+        android:name="com.hifeful.redbookofukraine.ui.OrganismFragment"
+        android:label="OrganismFragment" >
+        <argument
+            android:name="organism"
+            app:argType="com.hifeful.redbookofukraine.domain.Organism" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.hifeful.redbookofukraine.ui.search.SearchFragment"
+        android:label="SearchFragment" >
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_organismFragment"
+            app:destination="@id/organismFragment" />
+    </fragment>
 </navigation>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:scrollbars="none">
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/organism_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/red_material"
+                tools:text="Тип" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/organism_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/red_material"
+                tools:text="Класс" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/organism_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/red_material"
+                tools:text="Ряд" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/organism_family"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:chipBackgroundColor="@color/red_material"
+                tools:text="Родина" />
+        </com.google.android.material.chip.ChipGroup>
+</HorizontalScrollView>
